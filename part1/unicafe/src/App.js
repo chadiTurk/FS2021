@@ -27,14 +27,28 @@ const Content = (props) =>{
     )
 
   return(
-    <div>
-      <p>{props.buttonText[0]} {props.statValues[0]}</p>
-      <p>{props.buttonText[1]} {props.statValues[1]}</p>
-      <p>{props.buttonText[2]} {props.statValues[2]}</p>
-      <p>{props.summaryText[0]} {props.numericalSummaries[0]}</p>
-      <p>{props.summaryText[1]} {props.numericalSummaries[1]}</p>
-      <p>{props.summaryText[2]} {props.numericalSummaries[2]}</p>
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td>{props.buttonText[0]} {props.statValues[0]}</td>
+        </tr>
+        <tr>
+          <td>{props.buttonText[1]} {props.statValues[1]}</td>
+        </tr>
+        <tr>
+          <td>{props.buttonText[2]} {props.statValues[2]}</td>
+        </tr>
+        <tr>
+          <td>{props.summaryText[0]} {props.numericalSummaries[0]}</td>
+        </tr>
+        <tr>
+          <td>{props.summaryText[1]} {props.numericalSummaries[1]}</td>
+        </tr>
+        <tr>
+          <td>{props.summaryText[2]} {props.numericalSummaries[2]}</td>
+        </tr>
+      </tbody>
+    </table>
   )
 
 }
