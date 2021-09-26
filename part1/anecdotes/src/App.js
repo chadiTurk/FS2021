@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
 
+const Header = ({headerText}) =>{
+  return(
+    <h1>{headerText}</h1>
+  )
+}
+
 const Anecdote = (props) =>{
   return(
     <div>
@@ -37,7 +43,7 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
   const [votes,setVote] = useState([1,1,1,1,1,1,1])
-
+  let indexOfMostVoted = 0
 
   const randomNumber = (min,max) =>{
     min = Math.ceil(min);
@@ -56,14 +62,36 @@ const App = () => {
     setVote(copy)
   }
 
-  console.log(votes[selected],selected)
+  function indexOfMax(arr) {
+    const copy = [...arr]
+    if (copy.length === 0) {
+        return -1;
+    }
+
+    var max = copy[0];
+    var maxIndex = 0;
+
+    for (var i = 1; i < copy.length; i++) {
+        if (copy[i] > max) {
+            maxIndex = i;
+            max = copy[i];
+        }
+    }
+     indexOfMostVoted = maxIndex
+    } 
+
+  indexOfMax(votes)
 
   return (
     <div>
+      <Header headerText = {"Anecdote of the day"}/>
       <Anecdote anecdote = {anecdotes[selected]} />
       <Vote votes = {votes[selected]}/>
       <Button onClickEvent = {updateVote} buttonText = {"vote"}/>
-      <Button onClickEvent = {nextAnecdote} buttonText={"next anecdote"} />
+      <Button onClickEvent = {nextAnecdote} buttonText={"next anecdote"}/> 
+      <Header headerText = {"Anecdote with most votes"}/>
+      <Anecdote anecdote = {anecdotes[indexOfMostVoted]}/>
+      <Vote votes ={votes[indexOfMostVoted]}/>
     </div>
   )
 }
