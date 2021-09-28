@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import People from './components/People'
-
+import Form from './components/Form'
 
 
 
@@ -36,7 +36,10 @@ const App = () => {
       
     }
 
-    setPersons(persons.concat(newPerson))
+    let tempPerson = persons.concat(newPerson)
+
+    setPersons(tempPerson)
+    setFilterPersons(tempPerson)
     setNewName('')
     setNewNumber('')
   }
@@ -52,9 +55,7 @@ const App = () => {
   const handleNameFilter = (event) =>{
     setFilterName(event.target.value)
 
-    if(isEmptyOrSpaces(event.target.value)){
-      return
-    }
+
 
     console.log(event.target.value)
     
@@ -77,17 +78,8 @@ const App = () => {
       </div>
       
       <h2>add a new</h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value = {newName} onChange = {handleNameChange}/>
-        </div>
-        <div>
-          number: <input value = {newNumber} onChange = {handleNumberChange}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <Form addPerson = {addPerson} newName = {newName}  handleNameChange = {handleNameChange} 
+        newNumber = {newNumber} handleNumberChange = {handleNumberChange} />
       <h2>Numbers</h2>
       <ul>
         {filterPersons.map(person => {
