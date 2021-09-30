@@ -20,6 +20,8 @@ const App = () => {
       console.log('promise fulfilled')
       setPersons(response.data)
       setFilterPersons(response.data)
+    }).catch(error =>{
+      console.log(error)
     })
   },[])
 
@@ -62,9 +64,6 @@ const App = () => {
 
   const handleNameFilter = (event) =>{
     setFilterName(event.target.value)
-
-
-
     console.log(event.target.value)
     
     const tempFilterPersons = persons.filter(person =>
@@ -72,10 +71,6 @@ const App = () => {
     )
     setFilterPersons(tempFilterPersons)
   }
-  
-  function isEmptyOrSpaces(str){
-    return str === null || str.match(/^ *$/) !== null;
-}
   
 
   return (
