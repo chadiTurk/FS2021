@@ -11,7 +11,7 @@ const App = () => {
   const [ newNumber, setNewNumber] = useState('')
   const[ filterName, setFilterName] = useState('')
 
-  const [ filterPersons,setFilterPersons] = useState(persons)
+  const [ filterPersons,setFilterPersons] = useState([])
 
   useEffect(()=>{
     console.log("inside effect")
@@ -24,6 +24,8 @@ const App = () => {
       console.log(error)
     })
   },[])
+
+
 
   const addPerson = (event) =>{
     event.preventDefault()
@@ -42,12 +44,12 @@ const App = () => {
     Server.create(newPerson)
     .then(response =>{
         console.log(`${response.data} has been added to the server`);
-        let tempPerson = persons.concat(newPerson)
-        setPersons(tempPerson)
-        setFilterPersons(tempPerson)
+      
+        setPersons(persons.concat(response.data))
+        setFilterPersons(filterPersons.concat(response.data))
       }
     ).catch(error =>{
-      console.log('error msg',error)
+      console.log('failed to create a new entry',error)
     })
 
     setNewName('')
@@ -69,8 +71,19 @@ const App = () => {
     const tempFilterPersons = persons.filter(person =>
       (person.name.toLowerCase()).includes((event.target.value).toLowerCase())
     )
-    setFilterPersons(tempFilterPersons)
+    setFilterPersons(filterPersons.concat(tempFilterPersons))
   }
+
+  const deleteRender = (id) =>{
+    Server.deleteNumber(id).then(response =>{
+    
+   })
+
+   Server.getAll().then(response =>{
+    setFilterPersons(filterPersons.concat(response.data))
+  })
+  }
+
   
 
   return (
@@ -86,7 +99,8 @@ const App = () => {
       <h2>Numbers</h2>
       <ul>
         {filterPersons.map(person => {
-         return <People person = {person.name} key = {person.id} number = {person.number} /> 
+         return <People person = {person.name} key = {person.id} number = {person.number}  deleteUser = { () => {
+          deleteRender(person.id)}}/> 
         })}
       </ul>
     </div>

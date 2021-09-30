@@ -1,34 +1,3 @@
 {
-  "persons": [
-    {
-      "name": "we",
-      "number": "we",
-      "id": 1
-    },
-    {
-      "name": "AAA",
-      "number": "AAA",
-      "id": 2
-    },
-    {
-      "name": "he",
-      "number": "he",
-      "id": 3
-    },
-    {
-      "name": "Hello",
-      "number": "Hello",
-      "id": 4
-    },
-    {
-      "name": "hey",
-      "number": "hey",
-      "id": 5
-    },
-    {
-      "name": "NOt much",
-      "number": "a",
-      "id": 6
-    }
-  ]
+  "persons": []
 }
