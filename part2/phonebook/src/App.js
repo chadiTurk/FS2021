@@ -27,12 +27,35 @@ const App = () => {
 
 
 
+
   const addPerson = (event) =>{
     event.preventDefault()
     const checkNameExists = persons.find(person => person.name === newName)
 
     if(checkNameExists !== undefined){
-      alert(`${newName} is already added to the phonebook`)
+    const result = window.confirm(`${newName} is already added to the phonebook, update number?`)
+
+      if(result){
+        const getPerson = persons.find(person => {
+          if(person.name === newName)
+            return person
+        })
+        
+        Server.getOne(getPerson.id).then(response =>{
+          console.log(response);
+          var tempPerson = {...response.data, number:newNumber}
+          Server.update(tempPerson.id,tempPerson).then(response =>{
+            console.log(response)
+          })
+  
+          Server.getAll().then(response =>{
+            const temp = response.data
+            setFilterPersons(temp)
+          })
+        })
+      }
+
+
       return
     }
       

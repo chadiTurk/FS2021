@@ -1,3 +1,24 @@
 {
-  "persons": []
+  "persons": [
+    {
+      "name": "we",
+      "number": "WERRELO",
+      "id": 1
+    },
+    {
+      "name": "wee",
+      "number": "weee",
+      "id": 2
+    },
+    {
+      "name": "kool",
+      "number": "kol",
+      "id": 3
+    },
+    {
+      "name": "weererer",
+      "number": "wee",
+      "id": 4
+    }
+  ]
 }
