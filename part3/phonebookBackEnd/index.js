@@ -74,6 +74,11 @@ app.post('/api/persons',(req,res) =>{
 
     console.log(body)
 
+    if (!body.name || !body.number) {
+        return res.status(400).json({ 
+          error: 'content missing' 
+        })}
+
     const newPerson = {
         id:generateId(),
         name:body.name,
