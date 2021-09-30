@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import People from './components/People'
 import Form from './components/Form'
+import Success from './components/Success'
 import Server from './services/server'
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
   const[ filterName, setFilterName] = useState('')
 
   const [ filterPersons,setFilterPersons] = useState([])
+  const [success,setSuccess] = useState('')
 
   useEffect(()=>{
     console.log("inside effect")
@@ -75,6 +77,7 @@ const App = () => {
       console.log('failed to create a new entry',error)
     })
 
+    setSuccess(newName)
     setNewName('')
     setNewNumber('')
   }
@@ -112,6 +115,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Success name = {success}/>
       <div>
         filter shown with<input value = {filterName} onChange = {handleNameFilter}/>
       </div>
