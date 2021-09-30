@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import People from './components/People'
 import Form from './components/Form'
-import axios from 'axios'
-
-
+import Server from './services/server'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -17,7 +15,7 @@ const App = () => {
 
   useEffect(()=>{
     console.log("inside effect")
-    axios.get('http://localhost:3001/persons')
+    Server.getAll()
     .then(response => {
       console.log('promise fulfilled')
       setPersons(response.data)
@@ -35,16 +33,21 @@ const App = () => {
     }
       
     let newPerson = {
-      id:persons.length + 1,
       name:newName,
       number:newNumber
-      
     }
 
-    let tempPerson = persons.concat(newPerson)
+    Server.create(newPerson)
+    .then(response =>{
+        console.log(`${response.data} has been added to the server`);
+        let tempPerson = persons.concat(newPerson)
+        setPersons(tempPerson)
+        setFilterPersons(tempPerson)
+      }
+    ).catch(error =>{
+      console.log('error msg',error)
+    })
 
-    setPersons(tempPerson)
-    setFilterPersons(tempPerson)
     setNewName('')
     setNewNumber('')
   }
