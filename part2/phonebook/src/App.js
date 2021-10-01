@@ -102,9 +102,7 @@ const App = () => {
 
   const deleteRender = (id) =>{
     Server.deleteNumber(id).then(response =>{
-    
    })
-
    Server.getAll().then(response =>{
     setFilterPersons(response.data)
   })
