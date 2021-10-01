@@ -69,9 +69,9 @@ const App = () => {
     Server.create(newPerson)
     .then(response =>{
         console.log(`${response.data} has been added to the server`);
-      
-        setPersons(persons.concat(response.data))
-        setFilterPersons(filterPersons.concat(response.data))
+  
+        setPersons(response.data)
+        setFilterPersons(response.data)
       }
     ).catch(error =>{
       console.log('failed to create a new entry',error)
@@ -97,7 +97,7 @@ const App = () => {
     const tempFilterPersons = persons.filter(person =>
       (person.name.toLowerCase()).includes((event.target.value).toLowerCase())
     )
-    setFilterPersons(filterPersons.concat(tempFilterPersons))
+    setFilterPersons(tempFilterPersons)
   }
 
   const deleteRender = (id) =>{
@@ -106,7 +106,7 @@ const App = () => {
    })
 
    Server.getAll().then(response =>{
-    setFilterPersons(filterPersons.concat(response.data))
+    setFilterPersons(response.data)
   })
   }
 
