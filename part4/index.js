@@ -1,18 +1,18 @@
 const express = require('express')
-require('dotenv').config()
 const app = express()
 const cors = require('cors')
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-const blogRouter = require('./controllers/blogRoutes')
+const routerBlog = require('./routes/routerBlog')
 const mongoose = require('mongoose')
+const config = require('./utils/config')
 
 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(config.MONGODB_URI)
 .then(request =>{
-    app.listen(process.env.PORT,()=>{
-        console.log(`Listening to port ${process.env.PORT}`);
+    app.listen(config.PORT,()=>{
+        console.log(`Listening to port ${config.PORT}`);
     })
 })
 .catch(err =>{
@@ -20,8 +20,5 @@ mongoose.connect(process.env.MONGODB_URI)
 })
 
 
-
-
-app.use('/',blogRouter.getBlogs)
-app.use('/',blogRouter.addBlog)
+app.use(routerBlog)
 
