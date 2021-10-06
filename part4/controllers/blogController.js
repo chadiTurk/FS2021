@@ -20,7 +20,16 @@ const addBlog = router.post('/blogs',(req,res)=>{
     .catch(err => console.log(err))
 })
 
+const deleteBlog = router.delete('/blogs/:id',(req,res)=>{
+    Blog.findByIdAndRemove(req.params.id)
+    .then(res.status(204).end())
+    .catch(res.status(404).end())
+})
+
+
+
 module.exports = {
     getBlogs,
-    addBlog
+    addBlog,
+    deleteBlog
 }
