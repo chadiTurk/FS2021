@@ -48,6 +48,15 @@ describe('HTTP PUT',()=>{
         expect(response.body.likes).toBeDefined()
         expect(response.body.likes).toBe(0)
     })
+
+    test('a new blog with no title and/or url should return a status of 404',async()=>{
+        const response = await api
+        .post('/blogs')
+        .send(helper.sampleNoteNoTitleAndUrl)
+        
+        console.log(response)
+
+    })
 })
 
 afterAll(() => {

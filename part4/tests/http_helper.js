@@ -12,7 +12,13 @@ const sampleNoteNoLikes = {
     url:'weee'
 }
 
+const sampleNoteNoTitleAndUrl = {
+    author:'help me',
+    likes:3
+}
+
 module.exports = {
     sampleNoteComplete,
-    sampleNoteNoLikes
+    sampleNoteNoLikes,
+    sampleNoteNoTitleAndUrl
 }

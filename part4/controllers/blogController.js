@@ -10,7 +10,7 @@ router.get('/',(req,res)=>{
 const getBlogs = router.get('/blogs',(req,res)=>{
    Blog.find({})
    .then(blogs => res.json(blogs))
-   .catch(err => console.log(err))
+   .catch(err => res.status(404).send(err))
 })
 
 const addBlog = router.post('/blogs',(req,res)=>{
