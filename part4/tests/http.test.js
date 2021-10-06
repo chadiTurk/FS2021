@@ -49,14 +49,23 @@ describe('HTTP PUT',()=>{
         expect(response.body.likes).toBe(0)
     })
 
-    // test('a new blog with no title and/or url should return a status of 404',async()=>{
-    //     const response = await api
-    //     .post('/blogs')
-    //     .send(helper.sampleNoteNoTitleAndUrl)
-        
-    //     console.log(response)
+})
 
-    // })
+describe('HTTP DELETE',()=>{
+    test('a blog can be deleted',async()=>{
+        const response = await api
+        .post('/blogs')
+        .send(helper.sampleNoteComplete)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+
+        console.log('response body id',response.body.id)
+
+        await api
+        .delete(`/blogs/${response.body.id}`)
+        .expect(204)
+
+    })
 })
 
 afterAll(() => {
