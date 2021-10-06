@@ -13,6 +13,11 @@ const getBlogs = router.get('/blogs',(req,res)=>{
    .catch(err => res.status(404).send(err))
 })
 
+const getOneBlog = router.get('/blogs/:id',async(req,res)=>{
+   const response = await Blog.findById(req.params.id)
+   res.send(response.toJSON())
+})
+
 const addBlog = router.post('/blogs',(req,res)=>{
     const newBlog = new Blog(req.body)
     newBlog.save()
@@ -38,6 +43,7 @@ const updateBlog = router.put('/blogs/:id', async(req,res)=>{
 module.exports = {
     getBlogs,
     addBlog,
+    getOneBlog,
     deleteBlog,
     updateBlog
 }

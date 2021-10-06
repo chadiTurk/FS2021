@@ -22,7 +22,7 @@ describe('HTTP GET',()=>{
     })
 })
 
-describe('HTTP PUT',()=>{
+describe('HTTP POST',()=>{
 
     test('a new blog can be added to the database',async()=>{    
         const initialResponse = await api.get('/blogs')
@@ -65,6 +65,23 @@ describe('HTTP DELETE',()=>{
         .delete(`/blogs/${response.body.id}`)
         .expect(204)
 
+    })
+})
+
+describe('HTTP PUT',()=>{
+    test('likes get incremented by 1 upon put request',async()=>{
+        const priorToUpdate = await api
+        .get('/blogs/615d382b39e61228260c3831')
+        .expect(200)
+
+        const postUpdate = await api
+        .put('/blogs/615d382b39e61228260c3831')
+        .expect(200)
+        
+        
+        console.log('post update likes',postUpdate.body.likes)
+
+        expect(priorToUpdate.body.likes).toBe((postUpdate.body.likes))
     })
 })
 
