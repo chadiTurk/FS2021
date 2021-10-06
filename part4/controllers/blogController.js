@@ -26,10 +26,18 @@ const deleteBlog = router.delete('/blogs/:id',(req,res)=>{
     .catch(res.status(404).end())
 })
 
+const updateBlog = router.put('/blogs/:id', async(req,res)=>{
+
+    const update = await Blog.findByIdAndUpdate(req.params.id,{$inc : {'likes' : 1}})
+
+    res.send(update)
+})
+
 
 
 module.exports = {
     getBlogs,
     addBlog,
-    deleteBlog
+    deleteBlog,
+    updateBlog
 }

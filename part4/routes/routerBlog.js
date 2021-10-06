@@ -6,5 +6,6 @@ const router = express.Router();
 router.use('/',controllerBlog.getBlogs)
 router.use('/',controllerBlog.addBlog)
 router.use('/:id',controllerBlog.deleteBlog)
+router.use('/:id',controllerBlog.updateBlog)
 module.exports = router
 
