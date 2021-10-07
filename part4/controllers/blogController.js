@@ -3,10 +3,6 @@ const Blog = require('../models/Blog')
 const router = express.Router()
 
 
-router.get('/',(req,res)=>{
-    res.redirect('/blogs')
-})
-
 const getBlogs = router.get('/blogs',(req,res)=>{
    Blog.find({})
    .then(blogs => res.json(blogs))
