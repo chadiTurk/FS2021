@@ -3,8 +3,22 @@ const User = require('../models/User')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 
-const addUser = router.post('/users',async(req,res)=>{
+const addUser = router.post('/users',async(req,res,next)=>{
     const body = req.body
+
+    await User.findOne({username:body.username},()=>{
+        console.log('Username is already taken')
+        res.status(404).end()
+    })
+
+    if(body.password.length < 3){
+        console.log("The password must contain at least 3 characters")
+        res.status(404).end()
+    }
+    else if(body.username.length < 3){
+        console.log("The usernaame must contain at least 3 characters")
+        res.status(404).end()
+    }
 
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password,saltRounds)
