@@ -83,6 +83,22 @@ describe('HTTP PUT',()=>{
 
         expect(priorToUpdate.body.likes).toBe((postUpdate.body.likes))
     })
+
+    test('username that already exists in database cannot be added',async()=>{
+        await api
+        .put('/users')
+        .send(helper.sampleUserDuplicate)
+        .expect(404)
+    })
+
+    test('user with weak password wont be added to database',async()=>{
+        await api
+        .put('/users')
+        .send(helper.sampleUserWeakPassword)
+        .expect(404)
+    })
+
+
 })
 
 afterAll(() => {

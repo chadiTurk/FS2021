@@ -17,8 +17,22 @@ const sampleNoteNoTitleAndUrl = {
     likes:3
 }
 
+const sampleUserDuplicate = {
+    username:'john',
+    name:'bean',
+    password:'helloThere123'
+}
+
+const sampleUserWeakPassword = {
+    username:'hello',
+    name:'secret',
+    password:'eh'
+}
+
 module.exports = {
     sampleNoteComplete,
     sampleNoteNoLikes,
-    sampleNoteNoTitleAndUrl
+    sampleNoteNoTitleAndUrl,
+    sampleUserDuplicate,
+    sampleUserWeakPassword
 }
