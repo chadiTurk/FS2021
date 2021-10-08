@@ -10,13 +10,6 @@ const App = () => {
   const [password,setPassword] = useState('')
   const [user,setUser] = useState(null)
 
-  useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
-  }, [])
-
-
   const handleUsername = (event) =>{
     setUsername(event.target.value)
     console.log('username',username)
@@ -29,24 +22,19 @@ const App = () => {
 
   const handleLogin = async(event) =>{
     event.preventDefault()
-
-    try{
-      const getUser = await loginService.login({username,password}) 
-      console.log(getUser)
-      setUser(getUser)
-      setUsername('')
-      setPassword('')
-    }
-    catch(exception){
-
-      console.log('Wrong credentials')
-      setTimeout(() => {
-        console.log(null)
-      }, 5000)
-    }
-
-   
-    
+      try{
+        const getUser = await loginService.login({username,password})
+        const getBlogs = await blogService.getAllUserBlogs(getUser.data.username)
+        const result = await Promise.all([getUser,getBlogs])
+        setUser(getUser)
+        setUsername('')
+        setPassword('')
+        setBlogs(getBlogs)
+        console.log('result',result)
+      }
+      catch(error){
+        console.log('error with credentials')
+      }
   }
 
   const renderLoginForm = () =>{
@@ -66,7 +54,7 @@ const App = () => {
           <Blog key={blog.id} blog={blog} />
          )}
       </div>
-    )
+    ) 
   }
 
   return (
