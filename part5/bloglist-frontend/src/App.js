@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import AddBlog from './components/AddBlog'
+import Message from './components/Message'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import './App.css'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -13,6 +15,8 @@ const App = () => {
   const [title,setTitle] = useState('')
   const [author,setAuthor] = useState('')
   const [url,setUrl] = useState('')
+  const [loginError,setLoginError] = useState(false)
+  const [messageAdded,setMessageAdded] = useState(false)
 
   useEffect(()=>{
     const loggedUserJSON = window.localStorage.getItem('loggedInUser')
@@ -22,6 +26,8 @@ const App = () => {
       blogService.setToken(user.data.token)
       blogService.getAllUserBlogs(user.data.username)
       .then(data => setBlogs(data))
+      setLoginError(false)
+      setMessageAdded(false)
     }
   },[])
 
@@ -47,11 +53,13 @@ const App = () => {
         window.localStorage.setItem(
           'loggedInUser',JSON.stringify(getUser)
         )
-
+        blogService.setToken(getUser.data.token)
+        setLoginError(false)
         console.log('result',result)
       }
       catch(error){
         console.log('error with credentials')
+        setLoginError(true)
       }
   }
 
@@ -79,9 +87,11 @@ const App = () => {
     try{
      const result = await blogService.addBlog(newBlog)
      setBlogs(blogs.concat(result))
+     setMessageAdded(true)
     }
     catch(error){
       console.log('error',error)
+      setMessageAdded(false)
     }
   }
 
@@ -95,6 +105,8 @@ const App = () => {
   const userLogout = () =>{
     window.localStorage.clear()
     setUser(null)
+    setMessageAdded(false)
+    setLoginError(false)
   }
 
   const renderBlogs = () =>{
@@ -114,9 +126,24 @@ const App = () => {
     ) 
   }
 
+  const setMessage = (message,status) =>{
+    if(message === "" || message === null)
+      return(
+        <>
+        </>
+      )
+    else{
+      return(
+        <Message message = {message} status = {status} />
+      )
+    }
+  }
+
   return (
     <div>
       {user === null ? renderLoginForm(): renderBlogs()}
+      {loginError ? setMessage("wrong password or username","error"): setMessage("","success")}
+      {messageAdded ? setMessage(`a new blog named ${title} written by ${author} has been added`,"success"): setMessage("","success")}
     </div>
   )
 }
