@@ -41,6 +41,8 @@ const getAllUsers = router.get('/users',async(req,res)=>{
 const userLogin = router.post('/user/login',async(req,res)=>{
     const body = req.body
 
+    console.log('trigger')
+
     const user = await User.findOne({username:body.username})
     const passwordCorrect = user === null ? false : await bcrypt.compare(body.password,user.passwordHash)
 

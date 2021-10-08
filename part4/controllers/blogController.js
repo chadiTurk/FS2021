@@ -4,7 +4,7 @@ const User = require('../models/User')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 
-const getBlogs = router.get('/blogs', async (req,res)=>{
+const getBlogs = router.get('/blogs/all', async (req,res)=>{
     const blogs = await  Blog.find({}).populate('user',{username:1,name:1})
     res.json(blogs)
 })
@@ -12,6 +12,15 @@ const getBlogs = router.get('/blogs', async (req,res)=>{
 const getOneBlog = router.get('/blogs/:id',async(req,res)=>{
    const response = await Blog.findById(req.params.id)
    res.send(response.toJSON())
+})
+
+const getBlogsUser = router.get('/blogs/user/:username', async (req,res)=>{
+    let blogs = await Blog.find({}).populate('user',{username:1,name:1})
+
+    console.log('blogs',blogs)
+
+    blogs = blogs.filter(blog => blog.user.username === req.params.username)
+    res.json(blogs)
 })
 
 
@@ -32,7 +41,7 @@ const addBlog = router.post('/blogs', async (req,res)=>{
     if (!token || !decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid' })
     }
-      const user = await User.findById(decodedToken.id)
+      const user = await User.findById(decodedToken. id)
 
       console.log('user',user)
    
@@ -73,5 +82,6 @@ module.exports = {
     addBlog,
     getOneBlog,
     deleteBlog,
-    updateBlog
+    updateBlog,
+    getBlogsUser
 }

@@ -34,5 +34,5 @@ module.exports = {
     sampleNoteNoLikes,
     sampleNoteNoTitleAndUrl,
     sampleUserDuplicate,
-    sampleUserWeakPassword
+    sampleUserWeakPassword 
 }
