@@ -1,5 +1,5 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'
 const AddBlog = ({titleHandler,authorHandler,urlHandler,formHandler,titleValue,authorValue,urlValue}) =>{
     return(
         <form onSubmit = {formHandler}>
@@ -15,6 +15,12 @@ const AddBlog = ({titleHandler,authorHandler,urlHandler,formHandler,titleValue,a
             <button>create</button>
         </form>
     )
+}
+
+AddBlog.propTypes = {
+    titleValue:PropTypes.string.isRequired,
+    authorValue:PropTypes.string.isRequired,
+    urlValue:PropTypes.string.isRequired,
 }
 
 export default AddBlog

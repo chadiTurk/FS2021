@@ -49,7 +49,7 @@ const Blog = (props) => {
     <div>
       <span> Title: {props.blog.title}</span><button onClick={toggleVisibility}>{buttonLabel}</button>
       <p style = {hideWhenVisible}>Url:{props.blog.url}</p>
-      <div style = {hideWhenVisible}>
+      <div style = {hideWhenVisible} className ="likesAndUrlContainer">
         <span>Likes:{props.blog.likes}</span> <button onClick = {addLike}>like</button>
         <br/>
         <button onClick = {deleteBlog}>delete</button>
