@@ -96,6 +96,21 @@ const App = () => {
     }
   }
 
+  const handleUpdateLike = updatedBlog =>{
+
+    console.log('')
+    const temp = blogs.map(blog =>{
+      if(blog.id === updatedBlog.id){
+        console.log('blog updated')
+        return{...blog,likes:updatedBlog.likes}
+      }
+      else
+        return blog
+    })
+
+    setBlogs(temp)
+  }
+
   const renderLoginForm = () =>{
     return(
       <LoginForm usernameVal ={username} passwordVal = {password} onChangePassword = {handlePassword} 
@@ -119,11 +134,12 @@ const App = () => {
         <br/>  <br/>
         <Togglable buttonLabel="new note"> 
           <AddBlog titleHandler = {handleTitle} authorHandler = {handleAuthor} urlHandler = {handleUrl}
-            formHandler = {handleAddBlog} titleValue = {title} authorValue = {author} urlValue = {url}/>
+            formHandler = {handleAddBlog} titleValue = {title} authorValue = {author} urlValue = {url}
+            />
         </Togglable>
         <br/>  <br/>
         {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} />
+          <Blog key={blog.id} blog={blog} handleUpdateLike = {handleUpdateLike}/>
          )}
       </div>
     ) 

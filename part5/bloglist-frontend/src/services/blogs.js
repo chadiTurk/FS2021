@@ -18,21 +18,25 @@ const getAllUserBlogs = username =>{
   return request.then(response => response.data)
 }
 
-const addBlog = (body) =>{
+const addBlog = body =>{
   const config = {
     headers: { Authorization: token },
   }
-
   const request = axios.post(baseUrl,body,config)
-  console.log('request in request add',request)
   return request.then(response =>response.data)
+}
+
+const addLike = _id =>{
+  const request = axios.put(`${baseUrl}/${_id}`)
+  return request.then(response => response.data)
 }
 
 const blogRoutes = {
   getAll,
   getAllUserBlogs,
   addBlog,
-  setToken
+  setToken,
+  addLike
 }
 
 export default  blogRoutes
