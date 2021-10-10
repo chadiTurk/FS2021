@@ -27,6 +27,22 @@ const Blog = (props) => {
     }
    
   }
+
+  const deleteBlog = async () =>{
+    const result = window.confirm(`Are you sure you want to delete ${props.blog.title} ?`)
+
+    if(!result)
+      return
+
+    console.log('result val')
+    try{
+      const response = await blogService.deleteBlog(props.blog.id)
+      props.handleDeleteBlog(response)
+      console.log('delete response',response)
+    }catch(error){
+      console.log(error)
+    }
+  }
   
 
   return(
@@ -35,8 +51,10 @@ const Blog = (props) => {
       <p style = {hideWhenVisible}>Url:{props.blog.url}</p>
       <div style = {hideWhenVisible}>
         <span>Likes:{props.blog.likes}</span> <button onClick = {addLike}>like</button>
+        <br/>
+        <button onClick = {deleteBlog}>delete</button>
       </div>
-
+      <br/>
     </div>
   )
 }

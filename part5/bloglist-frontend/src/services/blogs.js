@@ -31,12 +31,18 @@ const addLike = _id =>{
   return request.then(response => response.data)
 }
 
+const deleteBlog = _id =>{
+  const request = axios.delete(`${baseUrl}/${_id}`)
+  return request.then(response =>response.data)
+}
+ 
 const blogRoutes = {
   getAll,
   getAllUserBlogs,
   addBlog,
   setToken,
-  addLike
+  addLike,
+  deleteBlog
 }
 
 export default  blogRoutes
