@@ -17,8 +17,6 @@ const getOneBlog = router.get('/blogs/:id',async(req,res)=>{
 const getBlogsUser = router.get('/blogs/user/:username', async (req,res)=>{
     let blogs = await Blog.find({}).populate('user',{username:1,name:1})
 
-    console.log('blogs',blogs)
-
     blogs = blogs.filter(blog => blog.user.username === req.params.username)
     res.json(blogs)
 })
@@ -34,9 +32,10 @@ const getTokenFrom = request => {
 
 const addBlog = router.post('/blogs', async (req,res)=>{
 
-    const body = req.body
+    const body = req.body   
 
     const token = getTokenFrom(req)
+
     const decodedToken = jwt.verify(token,process.env.SECRET)
     if (!token || !decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid' })
@@ -62,14 +61,14 @@ const addBlog = router.post('/blogs', async (req,res)=>{
     
 })
 
-const deleteBlog = router.delete('/blogs/:id',(req,res)=>{
-    Blog.findByIdAndRemove(req.params.id)
-    .then(res.status(204).end())
-    .catch(res.status(404).end())
+const deleteBlog = router.delete('/blogs/:id', async (req,res)=>{
+    
+    const response = await Blog.findByIdAndRemove(req.params.id)
+    res.send(response)
 })
 
 const updateBlog = router.put('/blogs/:id', async(req,res)=>{
-
+    console.log('executed here bruh')
     const update = await Blog.findByIdAndUpdate(req.params.id,{$inc : {'likes' : 1}})
 
     res.send(update)
