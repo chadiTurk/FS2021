@@ -47,7 +47,7 @@ const Blog = (props) => {
 
   return(
     <div>
-      <span> Title: {props.blog.title}</span><button onClick={toggleVisibility}>{buttonLabel}</button>
+      <span> Title: {props.blog.title}</span><button onClick={toggleVisibility} className = "buttonShow">{buttonLabel}</button>
       <p style = {hideWhenVisible}>Url:{props.blog.url}</p>
       <div style = {hideWhenVisible} className ="likesAndUrlContainer">
         <span>Likes:{props.blog.likes}</span> <button onClick = {addLike}>like</button>
