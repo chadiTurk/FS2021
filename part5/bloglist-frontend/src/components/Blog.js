@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React,{useState} from 'react'
 import blogService from '../services/blogs'
 const Blog = (props) => {
