@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
 import reducer from './reducer'
+import './index.css'
 
 const store = createStore(reducer)
 
