@@ -12,7 +12,7 @@ const App = () => {
   useEffect(()=>{
     anecdoteService.getAll()
     .then(response => dispatch(initAnecdotes(response.data)))
-  },[])
+  },[]) // eslint-disable-line react-hooks/exhaustive-deps 
 
  
   return (

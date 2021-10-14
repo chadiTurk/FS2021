@@ -6,8 +6,9 @@ const getAll = async () =>{
     return response
 }
 
-const addAnecdote = async() =>{
-
+const addAnecdote = async newAnecdote =>{
+    const response = await axios.post(baseUrl,newAnecdote)
+    return response
 }
 
 const axiosRoutes = {
