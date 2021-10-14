@@ -2,11 +2,21 @@ const initialState = "hello there"
 const reducerNotification = (state = initialState,action) =>{ 
     switch (action.type) {
         case 'SHOW_NOTIFICATION': {
-          return action.data.notification
+            state = action.data.notification
+          return state
         }
         default:
           return state
       }
+}
+
+export const showNotification = notification =>{
+    return{
+        type:'SHOW_NOTIFICATION',
+        data:{
+            notification
+        }
+    }
 }
 
 export default reducerNotification
