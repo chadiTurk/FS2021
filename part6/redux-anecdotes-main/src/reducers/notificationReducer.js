@@ -1,9 +1,19 @@
-const initialState = "hello there"
+let initialState = {
+    message:"Hello there",
+    style:{
+        border: 'solid',
+        padding: 10,
+        borderWidth: 1,
+        display:'none'
+    
+    }
+}
 const reducerNotification = (state = initialState,action) =>{ 
+    console.log(state)
     switch (action.type) {
         case 'SHOW_NOTIFICATION': {
-            state = action.data.notification
-          return state
+          const newMessage = action.data.notification
+          return {...state,style:{...state.style,display:'block'},message:newMessage}
         }
         default:
           return state
