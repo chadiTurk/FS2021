@@ -2,9 +2,11 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdoteReducer'
 import { showNotification } from '../reducers/notificationReducer'
+
 const AnecdoteList = () => {
 
     const dispatch = useDispatch()
+    
 
     let anecdotes = useSelector(state => {
         console.log('state',state)
