@@ -11,7 +11,6 @@ const AnecdoteForm = () =>{
         const anecdote = event.target.anecdoteInput.value
         console.log(anecdote)
         dispatch(addAnecdote(anecdote))
-      
       }
 
     return(
