@@ -9,7 +9,6 @@ let initialState = {
     }
 }
 const reducerNotification = (state = initialState,action) =>{ 
-    console.log(state)
     switch (action.type) {
         case 'SHOW_NOTIFICATION': {
           const newMessage = action.data.notification

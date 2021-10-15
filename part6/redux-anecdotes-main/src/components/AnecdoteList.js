@@ -4,8 +4,6 @@ import { voteAnecdote } from '../reducers/anecdoteReducer'
 import { showNotification } from '../reducers/notificationReducer'
 import { initAnecdotes } from '../reducers/anecdoteReducer'
 const AnecdoteList = () => {
-
-
     const dispatch = useDispatch()
 
     useEffect(()=>{
@@ -13,25 +11,17 @@ const AnecdoteList = () => {
     },[])
     
     let anecdotes = useSelector(state => {
-        console.log('state',state)
         return state.reducerAnecdote})
 
     const vote = (id,content) => {
-        console.log('vote', id)
         dispatch(voteAnecdote(id))
         dispatch(showNotification('you voted ' + content))
      }
 
      let filterValue = useSelector(state => state.reducerFilter)
-
-     if(filterValue === '')
-        console.log('no filter')
-     else{
+     if(filterValue !== '')
          anecdotes = anecdotes.filter(anecdote => (anecdote.content.toLowerCase()).includes(filterValue.toLowerCase()))
-     }
-     
- 
-    
+
      return(
         <div>
               {anecdotes.map(anecdote =>

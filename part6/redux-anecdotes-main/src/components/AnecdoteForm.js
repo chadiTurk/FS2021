@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { addAnecdote } from '../reducers/anecdoteReducer'
+import { addAnecdote} from '../reducers/anecdoteReducer'
 import { showNotification } from '../reducers/notificationReducer'
-import anecdoteService from '../services/anecdoteService'
+
 const AnecdoteForm = () =>{ 
 
     const dispatch = useDispatch()
@@ -14,12 +14,9 @@ const AnecdoteForm = () =>{
             content:anecdote,
             votes:0
         }
-    
-        anecdoteService.addAnecdote(newAnecdote)
-        .then(result => dispatch(addAnecdote(result.data)))
-        .catch(error => console.log(`Error with adding an anecdote ${error}`))
 
-         dispatch(showNotification('you added ' + anecdote))
+        dispatch(addAnecdote(newAnecdote))
+        dispatch(showNotification('you added ' + anecdote))
        
       }
 
