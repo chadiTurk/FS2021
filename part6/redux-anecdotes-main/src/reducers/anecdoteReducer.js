@@ -1,4 +1,4 @@
-
+import anecdoteService from '../services/anecdoteService'
 
 const reducer = (state = [], action) => {
 
@@ -6,6 +6,10 @@ const reducer = (state = [], action) => {
   
   switch(action.type)
   {
+
+    case 'INIT_ANECDOTES':
+      return action.data
+
     case 'VOTE_ANECDOTE':
       const id = action.data.id
       const anecdote = state.find(anec => anec.id === id)
@@ -15,9 +19,7 @@ const reducer = (state = [], action) => {
       
     case 'ADD_ANECDOTE':
       return [...state,action.data]
-    
-    case 'INIT_ANECDOTES':
-      return action.data
+
     default:
       return state
   }
@@ -44,10 +46,13 @@ export const addAnecdote = newAnecdote =>{
   }
 }
 
-export const initAnecdotes = anecdotes =>{
-  return{
-    type:'INIT_ANECDOTES',
-    data:anecdotes
+export const initAnecdotes = () =>{
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch({
+      type: 'INIT_ANECDOTES',
+      data:anecdotes.data
+    })
   }
 }
 

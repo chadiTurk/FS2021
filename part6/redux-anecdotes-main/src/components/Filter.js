@@ -1,6 +1,7 @@
 import React from 'react'
 import { filterAnecdotes } from '../reducers/filterReduer'
 import { useDispatch } from 'react-redux'
+
 const Filter = () => {
 
   const dispatch = useDispatch()
