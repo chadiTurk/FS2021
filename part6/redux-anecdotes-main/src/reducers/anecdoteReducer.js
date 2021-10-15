@@ -8,13 +8,12 @@ const reducer = (state = [], action) => {
   {
 
     case 'INIT_ANECDOTES':
-      return action.data
+      return action.data.sort((firstAnec,secondAnec) => secondAnec.votes - firstAnec.votes)
 
     case 'VOTE_ANECDOTE':
-      const id = action.data.id
-      const anecdote = state.find(anec => anec.id === id)
-      const updatedAnecdote = {...anecdote,votes : anecdote.votes + 1}
-      const updatedAnecdotes = state.map(singleAnecdote => singleAnecdote.id !== id ? singleAnecdote : updatedAnecdote)
+      const anecdote = action.data.returnedAnecdote
+      const id = anecdote.id
+      const updatedAnecdotes = state.map(singleAnecdote => singleAnecdote.id !== id ? singleAnecdote : anecdote)
       return updatedAnecdotes.sort((firstAnec,secondAnec) => secondAnec.votes - firstAnec.votes)
       
     case 'ADD_ANECDOTE':
@@ -26,32 +25,38 @@ const reducer = (state = [], action) => {
 
 }
 
-export const voteAnecdote = id =>{
-  return{
-    type: 'VOTE_ANECDOTE',
-    data:{
-      id
-    }
+export const voteAnecdote = anecdote => {
+  return async dispatch => {
+    const updatedAnecdote = {...anecdote,votes:anecdote.votes + 1}
+    const response = await anecdoteService.voteAnecdote(updatedAnecdote)
+    const returnedAnecdote = response.data
+
+    console.log('returned anecdoteee is',returnedAnecdote)
+    dispatch({
+      type:'VOTE_ANECDOTE',
+      data:{
+        returnedAnecdote
+      }
+    })
   }
 }
 
 
-export const addAnecdote = newAnecdote =>{
-  return async dispatch =>{
+export const addAnecdote = newAnecdote => {
+  return async dispatch => {
     const returnedAnecdote = await anecdoteService.addAnecdote(newAnecdote)
-    
     dispatch({
       type:'ADD_ANECDOTE',
       data:{
         content:returnedAnecdote.data.content,
-        id:returnedAnecdote.data.id,
+        id:newAnecdote.id,
         votes:returnedAnecdote.data.votes
       }
     })
   }
 }
 
-export const initAnecdotes = () =>{
+export const initAnecdotes = () => {
   return async dispatch => {
     const anecdotes = await anecdoteService.getAll()
     dispatch({

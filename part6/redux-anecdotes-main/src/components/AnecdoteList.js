@@ -13,9 +13,9 @@ const AnecdoteList = () => {
     let anecdotes = useSelector(state => {
         return state.reducerAnecdote})
 
-    const vote = (id,content) => {
-        dispatch(voteAnecdote(id))
-        dispatch(showNotification('you voted ' + content))
+    const vote = anecdote => {
+        dispatch(voteAnecdote(anecdote))
+        dispatch(showNotification('you voted ' + anecdote.content))
      }
 
      let filterValue = useSelector(state => state.reducerFilter)
@@ -31,7 +31,7 @@ const AnecdoteList = () => {
                 </div>
                 <div>
                     has {anecdote.votes}
-                    <button onClick={() => vote(anecdote.id,anecdote.content)}>vote</button>
+                    <button onClick={() => vote(anecdote)}>vote</button>
                 </div>
             
                 </div>
